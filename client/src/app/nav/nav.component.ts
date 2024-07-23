@@ -25,7 +25,11 @@ login(){
      this.router.navigateByUrl('/members')
      console.log(response);
   },
-  error:error=>this.toastr.error(error.error)
+  error:error=>
+  {
+    this.toastr.error(error.error);
+    console.error('login error: ',error);
+    }
  });
 }
 
