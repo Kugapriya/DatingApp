@@ -1,8 +1,9 @@
+import { ActivatedRoute } from '@angular/router';
 
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { Component, inject, OnInit } from '@angular/core';
 import { MemberService } from '../../_services/member.service';
-import { ActivatedRoute} from '@angular/router';
+
 import { Member } from '../../_models/member';
 import { GalleryItem, GalleryModule, ImageItem } from 'ng-gallery';
 
@@ -32,18 +33,11 @@ loadMember(): void {
    this.memberService.getMember(username).subscribe({
     next: member => {
       this.member = member;
-      if (member.photos && Array.isArray(member.photos)) {
-        member.photos.forEach(p => {
-          this.images.push(new ImageItem({ src: p.url, thumb: p.url }));
-        });
+        member.photos.map(p => {
+          this.images.push(new ImageItem({src:p.url,thumb:p.url}))
+        })
       }
-    },
-    error: err => {
-      console.error('Error loading member:', err);
-      
-    }
-  });
-}
-
+    })
+  }
 }
 
