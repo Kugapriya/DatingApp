@@ -16,6 +16,7 @@ public static class ClaimsPrincipleExtensions
             ?? throw new Exception("Cannot get username from token"));
             return userId;
     }
-     
+
+
 
 }

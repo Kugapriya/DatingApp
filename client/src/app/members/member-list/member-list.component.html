@@ -11,7 +11,7 @@
            class="form-control ms-1"
            style="width: 70px;"
            name="minAge"
-           [(ngModel)]="memberService.userParams().maxAge">
+           [(ngModel)]="memberService.userParams().minAge">
       </div>
 
       <div class="d-flex mx-2">
@@ -35,8 +35,8 @@
           </option>
         }
       </select>
-
       </div>
+
       <button class="btn btn-primary ms-1" type="submit">Apply filters</button>
       <button (click)="resetFilters()" class="btn btn-info ms-1" type="button">Reset</button>
 

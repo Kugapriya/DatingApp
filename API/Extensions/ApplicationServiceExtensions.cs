@@ -13,10 +13,17 @@ public static class ApplicationServiceExtensions
         services.AddDbContext<DataContext>(opt =>
     {
         opt.UseSqlServer(config.GetConnectionString("DefaultConnection"));
+        // .EnableSensitiveDataLogging()
+        // .LogTo(Console.WriteLine, LogLevel.Information);
     });
+
+    
+
+  
       services.AddCors();
       services.AddScoped<ITokenService, TokenService>();
-        services.AddScoped<IUserRepository, UserRepository>();
+      services.AddScoped<ILikesRepository,LikesRepository>();
+      services.AddScoped<IUserRepository, UserRepository>();
       services.AddScoped<IPhotoService,PhotoService>();
       services.AddScoped<LogUserActivity>();
       services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());

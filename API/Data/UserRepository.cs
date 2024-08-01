@@ -41,7 +41,7 @@ public class UserRepository(DataContext context,IMapper mapper) : IUserRepositor
         _=>query.OrderByDescending(x=>x.LastActive)
     };
 
-    return await PagedList<MemberDto>.CreateAsync(query.ProjectTo<MemberDto>(mapper.ConfigurationProvider),userParams.PageNumber,userParams.pageSize);
+    return await PagedList<MemberDto>.CreateAsync(query.ProjectTo<MemberDto>(mapper.ConfigurationProvider),userParams.PageNumber,userParams.PageSize);
     }
 
     public async Task<AppUser?> GetUserByIdAsync(int id)
@@ -59,7 +59,8 @@ public class UserRepository(DataContext context,IMapper mapper) : IUserRepositor
     public  async Task<IEnumerable<AppUser>> GetUsersAsync()
     {
         return await context.Users
-        .Include(x=>x.Photos).ToListAsync();
+        .Include(x=>x.Photos)
+        .ToListAsync();
     }
 
     public async Task<bool> SaveAllAsync()
