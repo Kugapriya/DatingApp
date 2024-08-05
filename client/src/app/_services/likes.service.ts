@@ -12,7 +12,7 @@ export class LikesService {
 baseUrl=environment.apiUrl
 private http=inject(HttpClient);
 likeIds=signal<number[]>([]);
-PaginatedResult=signal<PaginatedResult<Member[]> |null>(null);
+paginatedResult=signal<PaginatedResult<Member[]> |null>(null);
 
 toogleLike(targetId:number)
 {
@@ -24,9 +24,8 @@ getLikes(predicate:string,pageNumber:number,pageSize:number)
   let params=setPaginationHeaders(pageNumber,pageSize);
 
   params=params.append('predicate',predicate);
-  return this.http.get<Member[]>(`${this.baseUrl}likes`,
-    {observe:'response',params}).subscribe({
-    next:response=> setPaginatedResponse(response,this.PaginatedResult)
+  return this.http.get<Member[]>(`${this.baseUrl}likes`,{observe:'response',params}).subscribe({
+    next:response=> setPaginatedResponse(response,this.paginatedResult)
   })
 }
 

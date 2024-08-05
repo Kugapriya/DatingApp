@@ -1,3 +1,5 @@
+import { Member } from "./member";
+
 export interface Pagination{
 currentPage:number;
 itemsPerPage:number;
@@ -6,6 +8,6 @@ totalPages:number;
 }
 
 export class PaginatedResult<T>{
-items?: T;  //Member[]
+items?:T;  //Member[]
 pagination?:Pagination
 }

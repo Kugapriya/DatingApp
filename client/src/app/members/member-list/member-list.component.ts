@@ -7,17 +7,19 @@ import { PaginationModule } from 'ngx-bootstrap/pagination';
 import { AccountService } from '../../_services/account.service';
 import { FormsModule } from '@angular/forms';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-member-list',
   standalone: true,
-  imports: [MemberCardComponent,PaginationModule,FormsModule,ButtonsModule],
+  imports: [MemberCardComponent,PaginationModule,FormsModule,ButtonsModule,NgFor],
   templateUrl: './member-list.component.html',
   styleUrl: './member-list.component.css'
 })
 export class MemberListComponent implements OnInit{
  memberService=inject(MemberService);
 genderList=[{value:'male',display:'Males'},{value:'female',display:'Females'}]
+// members: Member[] = [];
 
   ngOnInit(): void {
     if(!this.memberService.paginatedResult()) this.loadMembers();
@@ -41,5 +43,8 @@ genderList=[{value:'male',display:'Males'},{value:'female',display:'Females'}]
       this.memberService.userParams().pageNumber=event.page;
       this.loadMembers();
     }
+  }
+  trackById(index: number, item: Member): number {
+    return item.id;
   }
 }

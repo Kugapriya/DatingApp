@@ -1,5 +1,5 @@
 
-import { signal, Signal } from '@angular/core';
+import { signal } from '@angular/core';
 import { HttpParams, HttpResponse } from '@angular/common/http';
 import { PaginatedResult } from '../_models/pagination';
 
@@ -8,8 +8,8 @@ export function setPaginatedResponse<T>(response:HttpResponse<T>,
  {
   paginatedResultSignal.set({
     items: response.body as T,
-    pagination:JSON.parse(response.headers.get('Pagination')!)
-  });
+    pagination: JSON.parse(response.headers.get('Pagination')!)
+  })
  }
  export function setPaginationHeaders(pageNumber:number,pageSize:number)
  {

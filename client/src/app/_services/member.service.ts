@@ -6,12 +6,10 @@ import { environment } from './../../environments/environment';
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { inject, Injectable, model, signal, WritableSignal } from '@angular/core';
 import { Member } from '../_models/member';
-import { of, tap } from 'rxjs';
+import { of,tap} from 'rxjs';
 import { PaginatedResult } from '../_models/pagination';
 import { AccountService } from './account.service';
 import { setPaginatedResponse, setPaginationHeaders } from './paginationHelper';
-
-
 
 
 @Injectable({
@@ -21,11 +19,10 @@ export class MemberService {
 private http=inject(HttpClient);
 private accountService=inject(AccountService);
 baseUrl = environment.apiUrl;
-paginatedResult=signal<PaginatedResult<Member[]>| null>(null);
+paginatedResult=signal<PaginatedResult<Member[]>|null>(null);
 memberCache=new Map();
 user=this.accountService.currentUser();
 userParams=signal<UserParams>(new UserParams(this.user));
-
 
 
 
@@ -54,7 +51,6 @@ getMembers() {
   })
 }
 
-
  getMember(username:string)
  {
   // const member=this.members().find(x => x.userName===username);
@@ -70,7 +66,7 @@ getMembers() {
 
  updateMember(member:Member)
  {
-  return this.http.put(this.baseUrl+'users',member).pipe(
+  return this.http.put(this.baseUrl+'users', member).pipe(
   //   tap(()=>{
   //     this.members.update(members => members.map(m => m.userName===member.userName
   //       ?member:m))

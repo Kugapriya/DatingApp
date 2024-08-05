@@ -21,14 +21,12 @@ model:any={};
 
 login(){
  this.accountService.login(this.model).subscribe({
-  next:response=>{
+  next:_=>{
      this.router.navigateByUrl('/members')
-     console.log(response);
   },
   error:error=>
   {
     this.toastr.error(error.error);
-    console.error('login error: ',error);
     }
  });
 }
