@@ -27,7 +27,7 @@
       <th style="width: 40%;">Message</th>
       <th style="width: 20%;">From/to</th>
       <th style="width: 20%;">Sent/Recieved</th>
-      <th style="width: 40%;"></th>
+      <th style="width: 20%;"></th>
     </tr>
   </thead>
   <tbody class="align-middle">
@@ -43,8 +43,8 @@
               alt="image of user"
               class="rounded-circle me-2">
 
-          <strong>{{container==='Outbox' ?
-              message.recipientUserName : message.senderUsername}}</strong>
+          <strong>{{isOutbox
+            ? message.recipientUserName : message.senderUsername}}</strong>
         </div>
       </td>
       <td>{{message.messageSent | timeago}}</td>
@@ -69,7 +69,6 @@
             nextText="&rsaquo;"
              firstText="&laquo;"
              lastText="&raquo;">
-
 </pagination>
 </div>
 }
