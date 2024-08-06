@@ -20,7 +20,7 @@ public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto creat
     var sender=await userRepository.GetUserByUsernameAsync(username);
     var recipient=await userRepository.GetUserByUsernameAsync(createMessageDto.RecipientUserName);
 
-    if(recipient==null || sender==null)  return BadRequest("Cannot send message at this time");
+    if(recipient==null || sender==null ||sender.UserName==null || recipient.UserName==null)  return BadRequest("Cannot send message at this time");
 
     var message=new Message
     {
