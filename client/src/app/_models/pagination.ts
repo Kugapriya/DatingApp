@@ -1,4 +1,3 @@
-import { Member } from "./member";
 
 export interface Pagination{
 currentPage:number;

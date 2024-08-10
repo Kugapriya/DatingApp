@@ -1,3 +1,4 @@
+import { PresenceService } from './presence.service';
 import { HttpClient } from '@angular/common/http';
 import { computed, inject, Injectable, signal } from '@angular/core';
 import { User } from '../_models/user';
@@ -11,6 +12,7 @@ import { LikesService } from './likes.service';
 export class AccountService {
 private http=inject(HttpClient);
 private likesService=inject(LikesService);
+presenceService=inject(PresenceService);
 baseUrl=environment.apiUrl;
 currentUser = signal<User| null>(null);
 roles=computed(()=>{
@@ -48,11 +50,13 @@ setCurrentUser(user:User){
   localStorage.setItem('user',JSON.stringify(user));
   this.currentUser.set(user);
   this.likesService.getLikeIds();
+ this.presenceService.createHubConnection(user);
 }
 
 logout()
 {
   localStorage.removeItem('user');
   this.currentUser.set(null);
+  this.presenceService.stopHubConnection();
 }
 }

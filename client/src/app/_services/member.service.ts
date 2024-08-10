@@ -1,3 +1,4 @@
+import { PresenceService } from './presence.service';
 
 
 import { UserParams } from './../_models/userParams';
@@ -23,7 +24,6 @@ paginatedResult=signal<PaginatedResult<Member[]>|null>(null);
 memberCache=new Map();
 user=this.accountService.currentUser();
 userParams=signal<UserParams>(new UserParams(this.user));
-
 
 
 resetUserParams()

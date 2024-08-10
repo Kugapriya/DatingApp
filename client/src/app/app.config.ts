@@ -24,3 +24,5 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(NgxSpinnerModule,TimeagoModule.forRoot(),ModalModule.forRoot())
   ]
 };
+
+

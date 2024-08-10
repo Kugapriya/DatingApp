@@ -1,5 +1,4 @@
-import { TimeagoPipe, TimeagoModule } from 'ngx-timeago';
-
+import { TimeagoModule } from 'ngx-timeago';
 
 import { Component, inject, Input, OnInit } from '@angular/core';
 import { ButtonsModule } from 'ngx-bootstrap/buttons';
@@ -8,9 +7,6 @@ import { RouterLink } from '@angular/router';
 import { MessageService } from '../_services/message.service';
 import { Message } from '../_models/message';
 import { PaginationModule } from 'ngx-bootstrap/pagination';
-import { previousDate } from 'ngx-bootstrap/datepicker/bs-datepicker.component';
-
-
 
 
 @Component({

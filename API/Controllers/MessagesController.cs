@@ -15,7 +15,7 @@ public class MessagesController(IMessageRepository messageRepository,IUserReposi
 public async Task<ActionResult<MessageDto>> CreateMessage(CreateMessageDto createMessageDto)
 {
     var username=User.GetUserName();
-    if(username==createMessageDto.RecipientUserName)  return BadRequest("You cannot message myself");
+    if(username==createMessageDto.RecipientUserName.ToLower())  return BadRequest("You cannot message myself");
     
     var sender=await userRepository.GetUserByUsernameAsync(username);
     var recipient=await userRepository.GetUserByUsernameAsync(createMessageDto.RecipientUserName);
