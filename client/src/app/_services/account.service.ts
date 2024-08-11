@@ -50,7 +50,7 @@ setCurrentUser(user:User){
   localStorage.setItem('user',JSON.stringify(user));
   this.currentUser.set(user);
   this.likesService.getLikeIds();
- this.presenceService.createHubConnection(user);
+this.presenceService.createHubConnection(user);
 }
 
 logout()
