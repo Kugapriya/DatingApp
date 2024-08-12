@@ -44,6 +44,8 @@ public class UserRepository(DataContext context,IMapper mapper) : IUserRepositor
     return await PagedList<MemberDto>.CreateAsync(query.ProjectTo<MemberDto>(mapper.ConfigurationProvider),userParams.PageNumber,userParams.PageSize);
     }
 
+  
+
     public async Task<AppUser?> GetUserByIdAsync(int id)
     {
         return await context.Users.FindAsync(id);
@@ -71,5 +73,26 @@ public class UserRepository(DataContext context,IMapper mapper) : IUserRepositor
     public void Update(AppUser user)
     {
         context.Entry(user).State=EntityState.Modified;
+    }
+
+      public async Task<MemberDto?> GetMemberAsync(string username, bool isCurrentUser)
+    {
+       var query=context.Users
+                .Where(x=>x.UserName==username)
+                .ProjectTo<MemberDto>(mapper.ConfigurationProvider)
+                .AsQueryable();
+
+            if(isCurrentUser) query=query.IgnoreQueryFilters();
+
+            return await query.FirstOrDefaultAsync();    
+    }
+
+    public async Task<AppUser?> GetUserByPhotoId(int photoId)
+    {
+        return await context.Users
+            .Include(p=>p.Photos)
+            .IgnoreQueryFilters()
+            .Where(p=>p.Photos.Any(p=>p.Id==photoId))
+            .FirstOrDefaultAsync();
     }
 }

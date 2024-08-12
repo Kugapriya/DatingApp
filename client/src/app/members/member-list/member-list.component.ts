@@ -44,7 +44,5 @@ genderList=[{value:'male',display:'Males'},{value:'female',display:'Females'}]
       this.loadMembers();
     }
   }
-  trackById(index: number, item: Member): number {
-    return item.id;
-  }
+ 
 }

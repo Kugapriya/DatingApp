@@ -25,8 +25,8 @@ this.hubConnection=new HubConnectionBuilder()
     .withAutomaticReconnect()
     .build();
 
-this.hubConnection.start()
-    .catch(error=>console.log(error));
+ this.hubConnection.start()
+     .catch(error=>console.log(error));
 
 this.hubConnection.on('UserIsOnline',username=>{
   this.onlineUsers.update(users=>[...users,username])

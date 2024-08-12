@@ -27,7 +27,8 @@ namespace API.Controllers;
  [HttpGet("{username}")]
         public async  Task<ActionResult<MemberDto>> GetUser(string username)
         {
-            var user = await unitOfWork.UserRepository.GetMemberAsync(username);
+            var currentUsername=User.GetUserName();
+            var user = await unitOfWork.UserRepository.GetMemberAsync(username,isCurrentUser:currentUsername==username);
 
             if (user == null) return NotFound();
             
@@ -62,7 +63,6 @@ namespace API.Controllers;
                 Url=result.SecureUrl.AbsoluteUri,
                 PublicId=result.PublicId
             };
-            if(user.Photos.Count==0) photo.IsMain=true;
            
             user.Photos.Add(photo);
             if(await unitOfWork.Complete()) 
@@ -71,6 +71,7 @@ namespace API.Controllers;
 
             return BadRequest("Problem Adding photo");
     }
+
     [HttpPut("set-main-photo/{photoId:int}")]
     public async Task<ActionResult> SetMainPhoto(int photoId)
     {
@@ -93,6 +94,8 @@ namespace API.Controllers;
     
     }
 
+
+
     [HttpDelete("delete-photo/{photoId:int}")]
     public async Task<ActionResult> DeletePhoto(int photoId)
     {
@@ -100,7 +103,7 @@ namespace API.Controllers;
     
     if(user==null) return BadRequest("User not found");
 
-    var photo=user.Photos.FirstOrDefault(x=>x.Id==photoId);
+    var photo=await unitOfWork.PhotoRepository.GetPhotoById(photoId);
     
     if(photo==null || photo.IsMain) return BadRequest("This photo cannot deleted");
 
@@ -116,5 +119,13 @@ namespace API.Controllers;
 
     return BadRequest("Problem Deleting photo");
     }
+
+
+    // [HttpGet("/{username}")]
+    // public async Task<MemberDto?> GetMemberAsync(string username, bool isCurrentUser)
+    // {
+    //      var currentUsername=User.GetUserName();
+    //      return await unitOfWork.UserRepository.GetMemberAsync(username,isCurrentUser:currentUsername==username);
+    // }
     }
 

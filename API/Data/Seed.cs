@@ -40,6 +40,7 @@ public static async Task SeedUsers(UserManager<AppUser>userManager,RoleManager<A
         // user.PasswordHash=hmac.ComputeHash(Encoding.UTF8.GetBytes("Pa$$w0rd"));
         // user.PasswordSalt=hmac.Key;
         user.UserName=user.UserName!.ToLower();
+        user.Photos.First().IsApproved=true;
         await userManager.CreateAsync(user,"Pa$$w0rd");
         await userManager.AddToRoleAsync(user,"Member");
     }
@@ -51,6 +52,7 @@ public static async Task SeedUsers(UserManager<AppUser>userManager,RoleManager<A
     City="",
     Country=""
    };
+   
    await userManager.CreateAsync(admin,"Pa$$w0rd");
    await userManager.AddToRolesAsync(admin,["Admin","Moderator"]);
 }
